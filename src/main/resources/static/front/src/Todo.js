@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import { ListItem, ListItemText, InputBase, Checkbox, ListItemSecondaryAction, IconButton } from "@mui/material";
 import { DeleteOutlined } from "@mui/icons-material";
+
 const Todo = (props) => {
     const [item, setItem] = useState(props.item);
-    const [readOnly, setReadOnly] = useState(false);
+    const [readOnly, setReadOnly] = useState(true);
     const deleteItem = props.deleteItem;
     const editItem = props.editItem;
 
@@ -11,13 +12,12 @@ const Todo = (props) => {
         deleteItem(item);
     };
 
-    const turnOffReadOnly = (e) => {
+    const turnOffReadOnly = () => {
         setReadOnly(false);
     }
 
     const turnOnReadOnly = (e) => {
         if (e.key === "Enter"){
-            e.target.blur();
             setReadOnly(true);
             console.log(e.target.readOnly);
         }
@@ -28,12 +28,19 @@ const Todo = (props) => {
         editItem();
     }
 
+    const checkboxEventHandler = (e) => {
+        item.done = e.target.checked;
+        editItem();
+    }
+
     return (
         <ListItem>
-           <Checkbox onClick={()=> {setItem({id : item.id, title : item.title, done : !item.done})}} checked={item.done}/>
+           <Checkbox onClick={checkboxEventHandler} checked={item.done}/>
            <ListItemText>
                 <InputBase 
-                    inputProps={{"aria-label" : "naked", "aria-readonly": readOnly}}
+                    inputProps={{ 
+                        "aria-label": "naked",
+                        readOnly: readOnly }}
                     type="text"
                     id={item.id} 
                     name={item.id} 

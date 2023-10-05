@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Todo from './Todo';
-import { Paper, List, Container, InputBase, ListItemText } from '@mui/material';
+import { Paper, List, Container } from '@mui/material';
 import AddTodo from './AddTodo';
 
 function App() {
@@ -41,10 +41,6 @@ function App() {
       <Container maxWidth="md">
         <AddTodo addItem={addItem}/>
         <div className='TodoList'>{todoItems}</div>
-        <ListItemText>
-          <InputBase type='text' readOnly={false} value="test1"></InputBase>
-          <InputBase type='text' readOnly={true} value="test2"></InputBase>
-        </ListItemText>
       </Container>
     </div>
   );
