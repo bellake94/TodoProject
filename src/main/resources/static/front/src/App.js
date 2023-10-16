@@ -7,6 +7,22 @@ import AddTodo from './AddTodo';
 function App() {
   const [items, setItems] = useState([]);
 
+  const reqOptions = {
+    method : "GET",
+    headers : {"Content-Type" : "application/json"},
+  }
+
+  fetch("http://localhost:8080/todo", reqOptions)
+    .then((res) => res.json())
+    .then(
+      (res) => {
+        setItems(res.data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+
   const addItem = (item) => {
     if (!item.title){
       alert("제목을 입력해주세요");
